@@ -148,7 +148,7 @@ def openid_decide(request):
 	# Unconditionally allow access to a site without prompting the 
 	# user if the trusted root contains the trusted domain name 
 	# configured in the settings
-    if settings.TRUSTED_DOMAIN in orequest.trust_root:
+    if any(x in orequest.trust_root for x in settings.TRUSTED_DOMAINS):
         TrustedRoot.objects.get_or_create(
             openid=openid, trust_root=orequest.trust_root)
         if not conf.FAILED_DISCOVERY_AS_VALID:
